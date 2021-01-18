@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Listagem</title>
+</h:head>
+
+<h:body>
+	<h1>TESTE</h1>
+	
+	<h:form id="frmMenu">
+		<p:menubar>
+			<p:menuitem value="#{geralBundle['menu.novo.header']}" action="#{controladorListaFuncionario.novo()}"></p:menuitem>
+			<p:menuitem value="#{geralBundle['menu.editar.header']}"></p:menuitem>
+			<p:menuitem value="#{geralBundle['menu.deletar.header']}"></p:menuitem>
+		</p:menubar>
+	</h:form>
+	
+
+	<h:form id="frmLista">
+		<p:dataTable id="dtFuncionarios" value="#{controladorListaFuncionario.funcionarios}" var="funcionario">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{funcionarioBundle['datatable.funcionario.nome.header']}" />
+				</f:facet>
+				<h:outputText value="#{funcionario.nome.completo()}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{funcionarioBundle['datatable.funcionario.nomeMae.header']}" />
+				</f:facet>
+				<h:outputText value="#{funcionario.nomeMae.completo()}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="#{funcionarioBundle['datatable.funcionario.nomePai.header']}" />
+				</f:facet>
+				<h:outputText value="#{funcionario.nomePai.completo()}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>

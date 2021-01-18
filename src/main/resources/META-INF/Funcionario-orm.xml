@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+	version="2.2">
+
+	<description>Mapeamento da Entidade Funcionario</description>
+
+	<package>br.com.valhala.ponto.dominio.funcionario.modelo</package>
+	
+	<named-query name="Funcionario.buscaPorUuid">
+		<query>
+			SELECT f FROM Funcionario f LEFT JOIN FETCH f.telefones WHERE f.uuid = :uuid
+		</query>
+	</named-query>
+	
+	<named-query name="Funcionario.buscaTodos">
+		<query>
+			SELECT f FROM Funcionario f LEFT JOIN FETCH f.telefones
+		</query>
+	</named-query>
+	
+	<named-query name="Funcionario.contagem">
+		<query>
+			SELECT COUNT(f) FROM Funcionario f
+		</query>
+	</named-query>
+	
+	<named-query name="Funcionario.existeUuid">
+		<query>
+			SELECT COUNT(f) > 0 FROM Funcionario f WHERE f.uuid = :uuid
+		</query>
+	</named-query>
+	
+	<named-query name="Funcionario.existeCpf">
+		<query>
+			SELECT COUNT(f) > 0 FROM Funcionario f WHERE f.cpf = :cpf
+		</query>
+	</named-query>
+	
+	<named-query name="Funcionario.existeCpfComUuidDiferente">
+		<query>
+			SELECT COUNT(f) > 0 FROM Funcionario f where f.cpf = :cpf AND f.uuid != :uuid
+		</query>
+	</named-query>
+	
+	<entity
+		class="br.com.valhala.ponto.dominio.funcionario.modelo.Funcionario"
+		name="Funcionario" access="FIELD">
+
+		<table name="tb_funcionario" />
+
+		<attributes>
+
+			<id name="id">
+				<column name="id" nullable="false" />
+				<generated-value strategy="SEQUENCE"
+					generator="funcionario_generator" />
+				<sequence-generator name="funcionario_generator"
+					sequence-name="seq_funcionario" />
+			</id>
+
+			<basic name="uuid">
+				<column name="uuid" nullable="false" updatable="false"
+					unique="true" />
+			</basic>
+
+			<basic name="dataNascimento">
+				<column name="data_nascimento" nullable="false" />
+			</basic>
+
+			<basic name="dataAdmissao">
+				<column name="data_admissao" nullable="false" />
+			</basic>
+			
+			<basic name="email">
+				<column name="email" nullable="false"/>
+			</basic>
+
+			<one-to-many name="telefones" mapped-by="funcionario" orphan-removal="true">
+				<cascade>
+					<cascade-all/>
+				</cascade>
+			</one-to-many>
+
+			<embedded name="nome" />
+
+			<embedded name="nomeMae">
+				<attribute-override name="nome">
+					<column name="mae_nome" nullable="false" />
+				</attribute-override>
+				<attribute-override name="sobrenome">
+					<column name="mae_sobrenome" nullable="false" />
+				</attribute-override>
+			</embedded>
+
+			<embedded name="nomePai">
+				<attribute-override name="nome">
+					<column name="pai_nome" />
+				</attribute-override>
+				<attribute-override name="sobrenome">
+					<column name="pai_sobrenome" />
+				</attribute-override>
+			</embedded>
+
+			<embedded name="cpf" />
+
+			<embedded name="endereco" />
+			
+			<embedded name="carteiraTrabalho" />
+			
+		</attributes>
+
+	</entity>
+	
+	<entity class="br.com.valhala.ponto.dominio.funcionario.modelo.Telefone" access="FIELD">
+		
+		<table name="tb_telefone" />
+		
+		<attributes>
+		
+			<id name="id">
+				<column name="id" nullable="false" />
+				<generated-value strategy="SEQUENCE" generator="gen_telefone" />
+				<sequence-generator name="gen_telefone" sequence-name="seq_telefone" />
+			</id>
+			
+			<basic name="tipo">
+				<column name="tipo" nullable="false" />
+				<enumerated>STRING</enumerated>
+			</basic>
+			
+			<basic name="ddd">
+				<column name="ddd" nullable="false" />
+			</basic>
+			
+			<basic name="numero">
+				<column name="numero" nullable="false" />
+			</basic>
+			
+			<many-to-one name="funcionario" fetch="LAZY">
+				<join-column name="id_funcionario" nullable="false" />
+				<foreign-key name="FK_EMPLOYEE_PHONE" />
+			</many-to-one>
+			
+		</attributes>
+		
+	</entity>
+
+	<embeddable
+		class="br.com.valhala.ponto.dominio.funcionario.modelo.Nome" access="FIELD">
+		<attributes>
+			<basic name="nome">
+				<column name="nome" length="100" />
+			</basic>
+			<basic name="sobrenome">
+				<column name="sobrenome" length="100" />
+			</basic>
+		</attributes>
+	</embeddable>
+
+	<embeddable
+		class="br.com.valhala.ponto.dominio.funcionario.modelo.CPF" access="FIELD">
+		<attributes>
+			<basic name="numero">
+				<column name="cpf_numero" nullable="false" />
+			</basic>
+			<basic name="digito">
+				<column name="cpf_digito" nullable="false" />
+			</basic>
+		</attributes>
+	</embeddable>
+
+	<embeddable
+		class="br.com.valhala.ponto.dominio.funcionario.modelo.Endereco" access="FIELD">
+		<attributes>
+			<basic name="tipoLogradouro">
+				<column name="tipo_logradouro" nullable="false" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<basic name="logradouro">
+				<column name="logradouro" nullable="false" />
+			</basic>
+
+			<basic name="numero">
+				<column name="numero" nullable="false" />
+			</basic>
+
+			<basic name="complemento">
+				<column name="complemento" />
+			</basic>
+
+			<basic name="bairro">
+				<column name="bairro" nullable="false" />
+			</basic>
+
+			<basic name="municipio">
+				<column name="municipio" nullable="false" />
+			</basic>
+
+			<basic name="estado">
+				<column name="estado" nullable="false" />
+				<enumerated>STRING</enumerated>
+			</basic>
+
+			<embedded name="cep" />
+		</attributes>
+	</embeddable>
+
+	<embeddable
+		class="br.com.valhala.ponto.dominio.funcionario.modelo.CEP" access="FIELD">
+		<attributes>
+			<basic name="prefixo">
+				<column name="cep_prefixo" nullable="false" />
+			</basic>
+			<basic name="sufixo">
+				<column name="cep_sufixo" nullable="false" />
+			</basic>
+		</attributes>
+	</embeddable>
+
+	<embeddable
+		class="br.com.valhala.ponto.dominio.funcionario.modelo.CarteiraTrabalho" access="FIELD">
+		<attributes>
+			<basic name="numero">
+				<column name="carteira_trabalho_numero" nullable="false" />
+			</basic>
+			<basic name="digito">
+				<column name="carteira_trabalho_digito" nullable="false" />
+			</basic>
+		</attributes>
+	</embeddable>
+
+</entity-mappings>

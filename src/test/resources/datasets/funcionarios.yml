@@ -1,0 +1,68 @@
+TB_FUNCIONARIO:
+  - ID: 10
+    UUID: 7bc7afec067811ebadc10242ac120002
+    NOME: Alana Sara
+    SOBRENOME: Nascimento
+    DATA_NASCIMENTO: 1965-12-10
+    CPF_NUMERO: 311864103
+    CPF_DIGITO: 70
+    MAE_NOME: Sophia Jéssica
+    MAE_SOBRENOME: Nascimento
+    PAI_NOME: Manuel Guilherme
+    PAI_SOBRENOME: Nascimento
+    TIPO_LOGRADOURO: RUA
+    LOGRADOURO: José Rodrigues
+    NUMERO: 495
+    BAIRRO: Centro
+    MUNICIPIO: Coronel Fabriciano
+    CEP_PREFIXO: 35170
+    CEP_SUFIXO: 091
+    ESTADO: MG
+    DATA_ADMISSAO: 2020-01-05
+    CARTEIRA_TRABALHO_NUMERO: 3761409
+    CARTEIRA_TRABALHO_DIGITO: 813
+    EMAIL: alanasaranascimento_@deltaturismo.com.br
+  - ID: 11
+    UUID: 7bc7afec067811ebadc10242ac130003
+    NOME: Tomás Marcelo Martin
+    SOBRENOME: Barbosa
+    DATA_NASCIMENTO: 1949-04-14
+    CPF_NUMERO: 955344824
+    CPF_DIGITO: 00
+    MAE_NOME: Giovanna Luzia Isis
+    MAE_SOBRENOME: Barbosa
+    PAI_NOME: Cauã Benjamin
+    PAI_SOBRENOME: Barbosa
+    TIPO_LOGRADOURO: AVENIDA
+    LOGRADOURO: Princesa Isabel
+    NUMERO: 586
+    BAIRRO: Caimbé
+    MUNICIPIO: Boa Vista
+    CEP_PREFIXO: 69312
+    CEP_SUFIXO: 175
+    ESTADO: RR
+    DATA_ADMISSAO: 2020-01-05
+    CARTEIRA_TRABALHO_NUMERO: 9553448
+    CARTEIRA_TRABALHO_DIGITO: 400
+    EMAIL: tomasmarcelomartinbarbosa_@gerdal.com.br
+TB_TELEFONE:
+  - ID: 10
+    TIPO: CELULAR
+    DDD: 31
+    NUMERO: 991776056
+    ID_FUNCIONARIO: 10
+  - ID: 11
+    TIPO: RESIDENCIAL
+    DDD: 31
+    NUMERO: 35074377
+    ID_FUNCIONARIO: 10
+  - ID: 12
+    TIPO: CELULAR
+    DDD: 95
+    NUMERO: 996695506
+    ID_FUNCIONARIO: 11
+  - ID: 13
+    TIPO: RESIDENCIAL
+    DDD: 95
+    NUMERO: 28448088
+    ID_FUNCIONARIO: 11
